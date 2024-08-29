@@ -42,6 +42,12 @@ extension Reminder {
             title: "Cook chicken",
             dueDate: Date().addingTimeInterval(200),
             notes: "Marinade beforehand"
+        ),
+        Reminder(
+            title: "Bake Banana Bread",
+            dueDate: Date().addingTimeInterval(1000000),
+            notes: "Include blackberries",
+            isComplete: true
         )
     ]
 }

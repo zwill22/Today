@@ -19,8 +19,29 @@ extension ReminderListViewController {
         contentConfiguration.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
         cell.contentConfiguration = contentConfiguration
         
+        var doneButtonConfiguration = doneButtonConfiguration(for: reminder)
+        doneButtonConfiguration.tintColor = .todayListCellDoneButtonTint
+        cell.accessories = [
+            .customView(configuration: doneButtonConfiguration), .disclosureIndicator(displayed: .always)
+        ]
+        
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
         backgroundConfiguration.backgroundColor = .todayListCellBackground
         cell.backgroundConfiguration = backgroundConfiguration
+    }
+    
+    func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
+        let symbolName = reminder.isComplete ? "circle.fill": "circle"
+        let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
+        let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
+        
+        let highlightedSymbolName = reminder.isComplete ? "pencil.circle": "cross"
+        let highlightedImage = UIImage(systemName: highlightedSymbolName, withConfiguration: symbolConfiguration)
+        
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.setImage(highlightedImage, for: .highlighted)
+        
+        return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
     }
 }
