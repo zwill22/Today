@@ -56,7 +56,9 @@ extension ReminderListViewController {
         let highlightedSymbolName = reminder.isComplete ? "pencil.circle": "cross"
         let highlightedImage = UIImage(systemName: highlightedSymbolName, withConfiguration: symbolConfiguration)
         
-        let button = UIButton()
+        let button = ReminderDoneButton()
+        button.id = reminder.id
+        button.addTarget(self, action: #selector(didPressDoneButton(_:)), for: .touchUpInside)
         button.setImage(image, for: .normal)
         button.setImage(highlightedImage, for: .highlighted)
         
